@@ -23,6 +23,7 @@ namespace JuegoPeliculas
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowVM();
         }
     }
 }
