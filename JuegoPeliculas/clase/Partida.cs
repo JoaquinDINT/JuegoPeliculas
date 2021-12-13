@@ -9,7 +9,7 @@ namespace JuegoPeliculas.clase
     {
         private ObservableCollection<Pelicula> _listaPeliculas;
 
-        public ObservableCollection<Pelicula> ListaPeliculas
+        public ObservableCollection<Pelicula> PeliculasPartida
         {
             get => _listaPeliculas;
             set => _ = SetProperty(ref _listaPeliculas, value);

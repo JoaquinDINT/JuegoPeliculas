@@ -5,6 +5,13 @@ namespace JuegoPeliculas.clase
 
     class Pelicula : ObservableObject
     {
+
+        public Pelicula(string titulo)
+        {
+            Titulo = titulo;
+        }
+
+
         private string titulo;
         public string Titulo
         {
@@ -34,6 +41,7 @@ namespace JuegoPeliculas.clase
         }
 
         private string genero;
+
         public string Genero
         {
             get { return genero; }

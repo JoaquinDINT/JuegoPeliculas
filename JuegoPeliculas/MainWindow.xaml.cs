@@ -20,6 +20,8 @@ namespace JuegoPeliculas
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowVM vm = new MainWindowVM();
+
         public MainWindow()
         {
             InitializeComponent();
