@@ -19,7 +19,6 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Título de la pelicula"
@@ -53,16 +52,11 @@
                     Content="Examinar"
                     Grid.Column="2"
                     Grid.Row="2" />
-
-           
-
         </Grid>
 
         <DockPanel>
             <Button x:Name="AceptarButtton"
                     Content="Aceptar"
-                    Grid.Column="1"
-                    Grid.Row="3"
                     Click="AceptarClick" />
             
         </DockPanel>

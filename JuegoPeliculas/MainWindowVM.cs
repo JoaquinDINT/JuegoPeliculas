@@ -13,11 +13,13 @@ namespace JuegoPeliculas
 {
     internal class MainWindowVM : ObservableObject
     {
-
         public MainWindowVM()
         {
             PeliculaActual = new Pelicula();
             PeliculaNueva = new Pelicula();
+            ListaDificultades = new List<string> { "Fácil", "Media", "Difícil" };
+            ListaGeneros = new List<string> { "Comedia", "Drama", "Acción", "Terror","Ciencia-Ficción" };
+            ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
         }
 
         private ObservableCollection<Pelicula> _listaPeliculas;
@@ -38,6 +40,35 @@ namespace JuegoPeliculas
                 if (value != _peliculaActual)
                 {
                     _ = SetProperty(ref _peliculaActual, value);
+                }
+            }
+        }
+
+        private List<String> _listaDificultades;
+
+        public List<String> ListaDificultades
+        {
+            get => _listaDificultades;
+            set
+            {
+                if (value != _listaDificultades)
+                {
+                    _ = SetProperty(ref _listaDificultades, value);
+                }
+            }
+        }
+
+
+        private List<String> _listaGeneros;
+
+        public List<String> ListaGeneros
+        {
+            get => _listaGeneros;
+            set
+            {
+                if (value != _listaGeneros)
+                {
+                    _ = SetProperty(ref _listaGeneros, value);
                 }
             }
         }

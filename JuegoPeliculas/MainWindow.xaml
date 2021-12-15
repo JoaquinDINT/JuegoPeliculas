@@ -8,6 +8,14 @@
         Title="MainWindow"
         Height="450"
         Width="800">
+    <Window.Resources>
+        <Style TargetType="Button"
+               x:Key="ModificarStyle">
+            
+            
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <TabControl>
             <TabItem Header="General">
@@ -18,30 +26,99 @@
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-
-                    <ListBox ItemsSource="{Binding Path=ListaPeliculas}">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Titulo}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
                 </Grid>
             </TabItem>
+            
             <TabItem Header="Configuración">
-                <DockPanel>
-                    <Button Content="Añadir Pelicula"
-                            Click="AñadirPeliculaClick"
-                            DockPanel.Dock="Left"/>
-                    <Button Content="Cargar Peliculas"
-                            Click="CargarPeliculasClick"
-                            DockPanel.Dock="Right"/>
+                <DockPanel >
+                    <TextBlock DockPanel.Dock="Top" />
+                    <StackPanel DockPanel.Dock="Right">
+                        <Button Content="Añadir Pelicula"
+                                Click="AñadirPeliculaClick"/>
+                        <Button Content="Cargar Peliculas"
+                                Click="CargarPeliculasClick"/>
+                    </StackPanel>
+                    <Grid DockPanel.Dock="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Título de la pelicula"
+                                   Grid.Row="0"
+                                   Grid.Column="0" />
+
+                        <TextBlock Text="Pista de la película"
+                                   Grid.Row="1"
+                                   Grid.Column="0" />
+
+                        <TextBlock Text="Imágen de la película"
+                                   Grid.Row="2"
+                                   Grid.Column="0" />
+
+                        <TextBox x:Name="TituloTextBox"
+                                 Text="{Binding Path=PeliculaActual.Titulo}"
+                                 Grid.Row="0"
+                                 Grid.Column="1" />
+
+                        <TextBox x:Name="PistaTextBox"
+                                 Text="{Binding Path=PeliculaActual.Pista}"
+                                 Grid.Row="1"
+                                 Grid.Column="1" />
+
+                        <TextBox x:Name="ImagenTextBox"
+                                 Text="{Binding Path=PeliculaActual.Cartel}"
+                                 Grid.Row="2"
+                                 Grid.Column="1" />
+
+                        <ComboBox ItemsSource="{Binding Path=ListaDificultades}"
+                                  SelectedValue="{Binding Path=PeliculaActual.Nivel}"
+                                  Grid.Row="1"
+                                  Grid.Column="3">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <ComboBox ItemsSource="{Binding Path=ListaGeneros}"
+                                  SelectedValue="{Binding Path=PeliculaActual.Genero}"
+                                  Grid.Row="1"
+                                  Grid.Column="4">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <Border>
+                        <ListBox ItemsSource="{Binding Path=ListaPeliculas}"
+                                 SelectedItem="{Binding Path=PeliculaActual}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=Cartel}"
+                                           Width="200" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
                 </DockPanel>
             </TabItem>
         </TabControl>
