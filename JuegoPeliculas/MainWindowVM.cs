@@ -1,4 +1,5 @@
 ﻿using JuegoPeliculas.clase;
+using JuegoPeliculas.dialogs;
 using JuegoPeliculas.servicio;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
@@ -10,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace JuegoPeliculas
 {
-    class MainWindowVM: ObservableObject
+    internal class MainWindowVM : ObservableObject
     {
 
         public MainWindowVM()
         {
-            PeliculaActual = new Pelicula("Holy Beasts");
-            ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
-        }<
+            PeliculaActual = new Pelicula();
+            PeliculaNueva = new Pelicula();
+        }
 
         private ObservableCollection<Pelicula> _listaPeliculas;
 
@@ -39,6 +40,54 @@ namespace JuegoPeliculas
                     _ = SetProperty(ref _peliculaActual, value);
                 }
             }
+        }
+
+        private Pelicula _peliculaNueva;
+
+        public Pelicula PeliculaNueva
+        {
+            get => _peliculaNueva;
+            set
+            {
+                if (value != _peliculaNueva)
+                {
+                    _ = SetProperty(ref _peliculaNueva, value);
+                }
+            }
+        }
+
+        public void CargarPeliculas()
+        {
+            ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
+        }
+        public void AñadirPelicula()
+        {
+            AñadirPeli AñadirDialogo = new AñadirPeli
+            {
+                DataContext = this
+            };
+
+            if (AñadirDialogo.ShowDialog() == true)
+            {
+                ListaPeliculas.Add(PeliculaNueva);
+                PeliculaNueva = new Pelicula();
+
+                foreach (Pelicula pel in ListaPeliculas)
+                {
+                    Console.WriteLine(pel.Titulo);
+                }
+            }
+        }
+
+        public void AceptarAñadirPelicula(AñadirPeli ap)
+        {
+            ap.DialogResult = true;
+        }
+
+        public void CancelarAñadirPelicula(AñadirPeli ap)
+        {
+            ap.DialogResult = false;
+            PeliculaNueva = new Pelicula();
         }
     }
 }

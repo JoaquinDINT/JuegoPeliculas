@@ -27,5 +27,15 @@ namespace JuegoPeliculas
             InitializeComponent();
             DataContext = new MainWindowVM();
         }
+
+        private void AñadirPeliculaClick(object sender, RoutedEventArgs e)
+        {
+            vm.AñadirPelicula();
+        }
+
+        private void CargarPeliculasClick(object sender, RoutedEventArgs e)
+        {
+            vm.CargarPeliculas();
+        }
     }
 }

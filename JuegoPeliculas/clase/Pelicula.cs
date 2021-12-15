@@ -2,50 +2,42 @@
 
 namespace JuegoPeliculas.clase
 {
-
     class Pelicula : ObservableObject
     {
-
-        public Pelicula(string titulo)
-        {
-            Titulo = titulo;
-        }
-
-
         private string titulo;
         public string Titulo
         {
-            get { return titulo; }
-            set { SetProperty(ref titulo, value); }
+            get => titulo;
+            set => _ = SetProperty(ref titulo, value);
         }
 
         private string pista;
         public string Pista
         {
-            get { return pista; }
-            set { SetProperty(ref pista, value); }
+            get => pista;
+            set => _ = SetProperty(ref pista, value);
         }
 
         private string cartel;
         public string Cartel
         {
-            get { return cartel; }
-            set { SetProperty(ref cartel, value); }
+            get => cartel;
+            set => _ = SetProperty(ref cartel, value);
         }
 
         private string nivel;
         public string Nivel
         {
-            get { return nivel; }
-            set { SetProperty(ref nivel, value); }
+            get => nivel;
+            set => _ = SetProperty(ref nivel, value);
         }
 
         private string genero;
 
         public string Genero
         {
-            get { return genero; }
-            set { SetProperty(ref genero, value); }
+            get => genero;
+            set => _ = SetProperty(ref genero, value);
         }
     }
 }

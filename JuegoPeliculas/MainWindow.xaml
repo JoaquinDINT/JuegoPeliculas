@@ -35,9 +35,14 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Configuración">
-
-                <Button Content="Añadir Pelicula" />
-
+                <DockPanel>
+                    <Button Content="Añadir Pelicula"
+                            Click="AñadirPeliculaClick"
+                            DockPanel.Dock="Left"/>
+                    <Button Content="Cargar Peliculas"
+                            Click="CargarPeliculasClick"
+                            DockPanel.Dock="Right"/>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </Grid>

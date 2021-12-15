@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F22E7CAF-C7B3-4B52-ADB4-C4BA1F39D8AA}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>JuegoPeliculas</RootNamespace>
     <AssemblyName>JuegoPeliculas</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Azure.Core, Version=1.19.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
@@ -112,10 +115,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="clase\Partida.cs" />
+    <Compile Include="dialogs\AñadirPeli.xaml.cs">
+      <DependentUpon>AñadirPeli.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="servicio\Dialogo.cs" />
     <Compile Include="servicio\Json.cs" />
     <Compile Include="servicio\Nube.cs" />
+    <Page Include="dialogs\AñadirPeli.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
