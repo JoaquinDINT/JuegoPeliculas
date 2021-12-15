@@ -16,8 +16,8 @@ namespace JuegoPeliculas
         public MainWindowVM()
         {
             PeliculaActual = new Pelicula("Holy Beasts");
-            ListaPeliculas = Json.CargarPeliculasJson();
-        }
+            ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
+        }<
 
         private ObservableCollection<Pelicula> _listaPeliculas;
 
