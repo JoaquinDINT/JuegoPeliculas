@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Windows;
 
 namespace JuegoPeliculas.servicio
 {
@@ -24,7 +25,7 @@ namespace JuegoPeliculas.servicio
         {
             OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*",
+                Filter = "Image files (*.png;*.jpeg, *.jpg)|*.png;*.jpeg; *.jpg|All files (*.*)|*.*",
                 FilterIndex = 0
             };
             string filename = "";
@@ -51,6 +52,11 @@ namespace JuegoPeliculas.servicio
             }
 
             return filename;
+        }
+
+        public static void Alerta(string cadena)
+        {
+            MessageBox.Show(cadena, "Alerta", MessageBoxButton.OK, MessageBoxImage.Hand);
         }
     }
 }

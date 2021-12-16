@@ -9,13 +9,37 @@
         Height="450"
         Width="800">
     <Window.Resources>
-        <Style TargetType="Button"
-               x:Key="ModificarStyle">
-            
-            
+        <Style TargetType="TextBox"
+               x:Key="DatosTextBox">
+            <Setter Property="IsEnabled"
+                    Value="{Binding Path=ModoEdicion}" />
+
         </Style>
+
+        <Style TargetType="ComboBox"
+               x:Key="DatosComboBox">
+            <Setter Property="IsEnabled"
+                    Value="{Binding Path=ModoEdicion}" />
+
+        </Style>
+
+        <Style TargetType="Button"
+               x:Key="ModificarButton">
+            <Style.Triggers>
+                <Trigger Property="{Binding Path=ModoEdicion}"
+                         Value="False">
+                    <Setter Property="IsEnabled"
+                            Value="True" />
+                </Trigger>
+                <Trigger Property="{Binding Path=ModoEdicion}"
+                         Value="True">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
-    
     <Grid>
         <TabControl>
             <TabItem Header="General">
@@ -67,21 +91,34 @@
 
                         <TextBox x:Name="TituloTextBox"
                                  Text="{Binding Path=PeliculaActual.Titulo}"
+                                 Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="0"
                                  Grid.Column="1" />
 
                         <TextBox x:Name="PistaTextBox"
                                  Text="{Binding Path=PeliculaActual.Pista}"
+                                 Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="1"
                                  Grid.Column="1" />
 
                         <TextBox x:Name="ImagenTextBox"
                                  Text="{Binding Path=PeliculaActual.Cartel}"
+                                 Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="2"
                                  Grid.Column="1" />
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="5"
+                            Grid.RowSpan="3">
+                            <Button Content="Modificar"
+                                    Click="ModificarClick" />
+                            <Button Content="Aceptar"
+                                    Click="AceptarClick" />
+                        </StackPanel>
 
                         <ComboBox ItemsSource="{Binding Path=ListaDificultades}"
                                   SelectedValue="{Binding Path=PeliculaActual.Nivel}"
+                                  Style="{StaticResource ResourceKey=DatosComboBox}"
                                   Grid.Row="1"
                                   Grid.Column="3">
                             <ComboBox.ItemTemplate>
@@ -93,6 +130,7 @@
 
                         <ComboBox ItemsSource="{Binding Path=ListaGeneros}"
                                   SelectedValue="{Binding Path=PeliculaActual.Genero}"
+                                  Style="{StaticResource ResourceKey=DatosComboBox}"
                                   Grid.Row="1"
                                   Grid.Column="4">
                             <ComboBox.ItemTemplate>
@@ -113,8 +151,11 @@
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding Path=Cartel}"
-                                           Width="200" />
+                                    <StackPanel>
+                                        <Image Source="{Binding Path=Cartel}"
+                                               Width="200" />
+                                        <TextBlock Text="{Binding Path=Titulo}" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

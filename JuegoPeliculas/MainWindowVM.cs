@@ -19,7 +19,8 @@ namespace JuegoPeliculas
             PeliculaNueva = new Pelicula();
             ListaDificultades = new List<string> { "Fácil", "Media", "Difícil" };
             ListaGeneros = new List<string> { "Comedia", "Drama", "Acción", "Terror","Ciencia-Ficción" };
-            ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
+            ListaPeliculas = new ObservableCollection<Pelicula>();
+            ModoEdicion = false;
         }
 
         private ObservableCollection<Pelicula> _listaPeliculas;
@@ -44,9 +45,9 @@ namespace JuegoPeliculas
             }
         }
 
-        private List<String> _listaDificultades;
+        private List<string> _listaDificultades;
 
-        public List<String> ListaDificultades
+        public List<string> ListaDificultades
         {
             get => _listaDificultades;
             set
@@ -58,10 +59,23 @@ namespace JuegoPeliculas
             }
         }
 
+        private bool _modoEdicion;
 
-        private List<String> _listaGeneros;
+        public bool ModoEdicion
+        {
+            get => _modoEdicion;
+            set
+            {
+                if (value != _modoEdicion)
+                {
+                    _ = SetProperty(ref _modoEdicion, value);
+                }
+            }
+        }
 
-        public List<String> ListaGeneros
+        private List<string> _listaGeneros;
+
+        public List<string> ListaGeneros
         {
             get => _listaGeneros;
             set
@@ -91,6 +105,7 @@ namespace JuegoPeliculas
         {
             ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
         }
+
         public void AñadirPelicula()
         {
             AñadirPeli AñadirDialogo = new AñadirPeli
@@ -118,7 +133,29 @@ namespace JuegoPeliculas
         public void CancelarAñadirPelicula(AñadirPeli ap)
         {
             ap.DialogResult = false;
-            PeliculaNueva = new Pelicula();
+        }
+
+        public void AceptarCambios()
+        {
+            ModoEdicion = false;
+        }
+
+        public void ModificarPelicula()
+        {
+            ModoEdicion = true;
+        }
+
+        public void ExaminarAñadirPelicula()
+        {
+            try
+            {
+                string ruta = Dialogo.AbrirImagen();
+                PeliculaNueva.Cartel = Nube.SubirImagen(ruta);
+            }
+            catch(Exception)
+            {
+                Dialogo.Alerta("Error al subir una imagen a la nube");
+            }
         }
     }
 }

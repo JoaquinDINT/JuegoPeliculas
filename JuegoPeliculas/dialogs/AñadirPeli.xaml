@@ -44,21 +44,49 @@
                      Grid.Column="1" />
 
             <TextBox x:Name="ImagenTextBox"
-                     Text="{Binding Path=PeliculaNueva.Cartel, Mode=OneWayToSource}"
+                     Text="{Binding Path=PeliculaNueva.Cartel}"
                      Grid.Row="2"
                      Grid.Column="1" />
 
             <Button x:Name="ExaminarButton"
                     Content="Examinar"
                     Grid.Column="2"
-                    Grid.Row="2" />
+                    Grid.Row="2"
+                    Click="ExaminarClick" />
+
+            <ComboBox ItemsSource="{Binding Path=ListaDificultades}"
+                      SelectedItem="{Binding Path=PeliculaNueva.Nivel, Mode=OneWayToSource}"
+                      Grid.Row="3"
+                      Grid.Column="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <ComboBox ItemsSource="{Binding Path=ListaGeneros}"
+                      SelectedItem="{Binding Path=PeliculaNueva.Genero, Mode=OneWayToSource}"
+                      Grid.Row="3"
+                      Grid.Column="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
-        <DockPanel>
+        <DockPanel LastChildFill="False">
             <Button x:Name="AceptarButtton"
                     Content="Aceptar"
-                    Click="AceptarClick" />
-            
+                    Click="AceptarClick"
+                    DockPanel.Dock="Right"/>
+
+            <Button x:Name="CancelarButtton"
+                    Content="Cancelar"
+                    Click="AceptarClick"
+                    DockPanel.Dock="Left"/>
         </DockPanel>
     </StackPanel>
     

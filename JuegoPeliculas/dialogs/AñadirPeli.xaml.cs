@@ -29,5 +29,15 @@ namespace JuegoPeliculas.dialogs
         {
             (DataContext as MainWindowVM).AceptarAñadirPelicula(this);
         }
+
+        private void CancelarClick(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowVM).CancelarAñadirPelicula(this);
+        }
+
+        private void ExaminarClick(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowVM).ExaminarAñadirPelicula();
+        }
     }
 }

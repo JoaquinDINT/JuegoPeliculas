@@ -15,26 +15,26 @@ namespace JuegoPeliculas.servicio
         
         public static ObservableCollection<Pelicula> CargarPeliculasJson()
         {
-            string personasJson = File.ReadAllText("peliculas.json");
-            return JsonConvert.DeserializeObject<ObservableCollection<Pelicula>>(personasJson);
+            string peliculasJson = File.ReadAllText("peliculas.json");
+            return JsonConvert.DeserializeObject<ObservableCollection<Pelicula>>(peliculasJson);
         }
 
         public static ObservableCollection<Pelicula> CargarPeliculasJson(string path)
         {
-            string personasJson = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<ObservableCollection<Pelicula>>(personasJson);
+            string peliculasJson = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<ObservableCollection<Pelicula>>(peliculasJson);
         }
 
         public static void GuardarPeliculasJson(ObservableCollection<Pelicula> lista)
         {
-            string personasJson = JsonConvert.SerializeObject(lista);
-            File.WriteAllText("personas.json", personasJson);
+            string peliculasJson = JsonConvert.SerializeObject(lista);
+            File.WriteAllText("personas.json", peliculasJson);
         }
 
         public static void GuardarPeliculasJson(ObservableCollection<Pelicula> lista, string path)
         {
-            string personasJson = JsonConvert.SerializeObject(lista);
-            File.WriteAllText(path, personasJson);
+            string peliculasJson = JsonConvert.SerializeObject(lista);
+            File.WriteAllText(path, peliculasJson);
         }
     }
 }
