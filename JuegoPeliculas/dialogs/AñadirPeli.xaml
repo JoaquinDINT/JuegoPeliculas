@@ -6,9 +6,23 @@
         xmlns:local="clr-namespace:JuegoPeliculas.dialogs"
         xmlns:juegopeliculas="clr-namespace:JuegoPeliculas"
         mc:Ignorable="d"
-        Title="AñadirPeli" Height="450" Width="800">
+        Title="AñadirPeli"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock"
+               ></Style>
+    </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <Grid>
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                Width="115"
+                Height="210"
+                Margin="0,15,0,15">
+            <Image Source="{Binding Path=PeliculaNueva.Cartel, UpdateSourceTrigger=PropertyChanged}" />
+        </Border>
+        <Grid Margin="0,15,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -77,7 +91,8 @@
             </ComboBox>
         </Grid>
 
-        <DockPanel LastChildFill="False">
+        <DockPanel LastChildFill="False"
+                   Margin="0,15,0,15">
             <Button x:Name="AceptarButtton"
                     Content="Aceptar"
                     Click="AceptarClick"

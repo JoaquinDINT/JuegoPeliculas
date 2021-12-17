@@ -26,16 +26,16 @@
         <Style TargetType="Button"
                x:Key="ModificarButton">
             <Style.Triggers>
-                <Trigger Property="{Binding Path=ModoEdicion}"
+                <DataTrigger Binding="{Binding Path=ModoEdicion}"
                          Value="False">
                     <Setter Property="IsEnabled"
                             Value="True" />
-                </Trigger>
-                <Trigger Property="{Binding Path=ModoEdicion}"
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=ModoEdicion}"
                          Value="True">
                     <Setter Property="IsEnabled"
                             Value="False" />
-                </Trigger>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -90,19 +90,19 @@
                                    Grid.Column="0" />
 
                         <TextBox x:Name="TituloTextBox"
-                                 Text="{Binding Path=PeliculaActual.Titulo}"
+                                 Text="{Binding Path=PeliculaActual.Titulo, UpdateSourceTrigger=Explicit}"
                                  Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="0"
                                  Grid.Column="1" />
 
                         <TextBox x:Name="PistaTextBox"
-                                 Text="{Binding Path=PeliculaActual.Pista}"
+                                 Text="{Binding Path=PeliculaActual.Pista, UpdateSourceTrigger=Explicit}"
                                  Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="1"
                                  Grid.Column="1" />
 
                         <TextBox x:Name="ImagenTextBox"
-                                 Text="{Binding Path=PeliculaActual.Cartel}"
+                                 Text="{Binding Path=PeliculaActual.Cartel, UpdateSourceTrigger=Explicit}"
                                  Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="2"
                                  Grid.Column="1" />
@@ -116,8 +116,9 @@
                                     Click="AceptarClick" />
                         </StackPanel>
 
-                        <ComboBox ItemsSource="{Binding Path=ListaDificultades}"
-                                  SelectedValue="{Binding Path=PeliculaActual.Nivel}"
+                        <ComboBox x:Name="DificultadConboBox" 
+                                  ItemsSource="{Binding Path=ListaDificultades}"
+                                  SelectedValue="{Binding Path=PeliculaActual.Nivel, UpdateSourceTrigger=Explicit}"
                                   Style="{StaticResource ResourceKey=DatosComboBox}"
                                   Grid.Row="1"
                                   Grid.Column="3">
@@ -129,7 +130,7 @@
                         </ComboBox>
 
                         <ComboBox ItemsSource="{Binding Path=ListaGeneros}"
-                                  SelectedValue="{Binding Path=PeliculaActual.Genero}"
+                                  SelectedValue="{Binding Path=PeliculaActual.Genero, UpdateSourceTrigger=Explicit}"
                                   Style="{StaticResource ResourceKey=DatosComboBox}"
                                   Grid.Row="1"
                                   Grid.Column="4">

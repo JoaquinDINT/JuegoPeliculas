@@ -45,6 +45,10 @@ namespace JuegoPeliculas
 
         private void AceptarClick(object sender, RoutedEventArgs e)
         {
+            BindingExpression tituloBinding = TituloTextBox.GetBindingExpression(TextBox.TextProperty);
+
+            BindingExpression dificultadBinding = DificultadConboBox.GetBindingExpression(ComboBox.SelectedValueProperty);
+
             vm.AceptarCambios();
         }
     }
