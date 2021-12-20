@@ -105,6 +105,10 @@ namespace JuegoPeliculas
         {
             ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
         }
+        public void GuardarPeliculas()
+        {
+            Json.GuardarPeliculasJson(ListaPeliculas, Dialogo.GuardarJson());
+        }
 
         public void AñadirPelicula()
         {

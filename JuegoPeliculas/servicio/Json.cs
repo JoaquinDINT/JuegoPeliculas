@@ -21,7 +21,14 @@ namespace JuegoPeliculas.servicio
 
         public static ObservableCollection<Pelicula> CargarPeliculasJson(string path)
         {
-            string peliculasJson = File.ReadAllText(path);
+            string peliculasJson = "";
+            try
+            {
+               peliculasJson = File.ReadAllText(path);
+            } catch(ArgumentException)
+            {
+                Dialogo.Alerta("Por favor selecciona un archivo valido");
+            }
             return JsonConvert.DeserializeObject<ObservableCollection<Pelicula>>(peliculasJson);
         }
 
@@ -33,8 +40,15 @@ namespace JuegoPeliculas.servicio
 
         public static void GuardarPeliculasJson(ObservableCollection<Pelicula> lista, string path)
         {
-            string peliculasJson = JsonConvert.SerializeObject(lista);
-            File.WriteAllText(path, peliculasJson);
+            try
+            {
+                string peliculasJson = JsonConvert.SerializeObject(lista);
+                File.WriteAllText(path, peliculasJson);
+            }
+            catch (ArgumentException)
+            {
+                Dialogo.Alerta("Por favor elige donde quieres guardar tu archivo");
+            }
         }
     }
 }

@@ -45,11 +45,21 @@ namespace JuegoPeliculas
 
         private void AceptarClick(object sender, RoutedEventArgs e)
         {
-            BindingExpression tituloBinding = TituloTextBox.GetBindingExpression(TextBox.TextProperty);
+            TituloTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 
-            BindingExpression dificultadBinding = DificultadConboBox.GetBindingExpression(ComboBox.SelectedValueProperty);
+            DificultadConboBox.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
 
             vm.AceptarCambios();
+        }
+
+        private void GuardarPeliculasClick(object sender, RoutedEventArgs e)
+        {
+            vm.GuardarPeliculas();
+        }
+
+        private void ExaminarClick(object sender, RoutedEventArgs e)
+        {
+            //vm.ExaminarImagen();
         }
     }
 }

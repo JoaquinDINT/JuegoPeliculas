@@ -39,6 +39,12 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="Button"
+               x:Key="BindingButton">
+            <Setter Property="IsEnabled"
+                    Value="{Binding Path=ModoEdicion}" />
+        </Style>
+
     </Window.Resources>
     <Grid>
         <TabControl>
@@ -61,10 +67,12 @@
                                 Click="AñadirPeliculaClick"/>
                         <Button Content="Cargar Peliculas"
                                 Click="CargarPeliculasClick"/>
+                        <Button Content="Guardar Peliculas"
+                                Click="GuardarPeliculasClick" />
                     </StackPanel>
                     <Grid DockPanel.Dock="Bottom">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -79,21 +87,25 @@
 
                         <TextBlock Text="Título de la pelicula"
                                    Grid.Row="0"
-                                   Grid.Column="0" />
+                                   Grid.Column="0"
+                                   Margin="5"/>
 
                         <TextBlock Text="Pista de la película"
                                    Grid.Row="1"
-                                   Grid.Column="0" />
+                                   Grid.Column="0"
+                                   Margin="5"/>
 
                         <TextBlock Text="Imágen de la película"
                                    Grid.Row="2"
-                                   Grid.Column="0" />
+                                   Grid.Column="0"
+                                   Margin="5"/>
 
                         <TextBox x:Name="TituloTextBox"
                                  Text="{Binding Path=PeliculaActual.Titulo, UpdateSourceTrigger=Explicit}"
                                  Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="0"
-                                 Grid.Column="1" />
+                                 Grid.Column="1"
+                                 Margin="5"/>
 
                         <TextBox x:Name="PistaTextBox"
                                  Text="{Binding Path=PeliculaActual.Pista, UpdateSourceTrigger=Explicit}"
@@ -105,16 +117,30 @@
                                  Text="{Binding Path=PeliculaActual.Cartel, UpdateSourceTrigger=Explicit}"
                                  Style="{StaticResource ResourceKey=DatosTextBox}"
                                  Grid.Row="2"
-                                 Grid.Column="1" />
-                        <StackPanel
-                            Grid.Row="0"
-                            Grid.Column="5"
-                            Grid.RowSpan="3">
-                            <Button Content="Modificar"
-                                    Click="ModificarClick" />
-                            <Button Content="Aceptar"
-                                    Click="AceptarClick" />
-                        </StackPanel>
+                                 Grid.Column="1"
+                                 Margin="5"/>
+
+                        <Button Content="Modificar"
+                                Style="{StaticResource ModificarButton}"
+                                Click="ModificarClick"
+                                Grid.Row="0"
+                                Grid.Column="5"
+                                Margin="5" />
+                        
+                        <Button Content="Aceptar"
+                                Click="AceptarClick"
+                                Style="{StaticResource BindingButton}"
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                Margin="5" />
+                        
+                        <Button Content="Examinar"
+                                Click="ExaminarClick"
+                                Style="{StaticResource BindingButton}"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Margin="5" />
+
 
                         <ComboBox x:Name="DificultadConboBox" 
                                   ItemsSource="{Binding Path=ListaDificultades}"
