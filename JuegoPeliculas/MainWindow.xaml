@@ -12,6 +12,8 @@
         MinWidth="800"
         >
     <Window.Resources>
+        <local:GeneroConverter x:Key="GeneroConverter" />
+        
         <Style TargetType="TextBox"
                x:Key="DatosTextBox">
             <Setter Property="IsEnabled"
@@ -167,18 +169,22 @@
 
                             <DockPanel DockPanel.Dock="Top">
                                 <Button Content="Validar respuesta"
-                                        DockPanel.Dock="Right" />
-                                <TextBox />
+                                        DockPanel.Dock="Right"
+                                        IsEnabled="{Binding Path=PartidaEnCurso}"
+                                        Margin="5"/>
+                                <TextBox Text="{Binding Path=PartidaActual.Respuesta, UpdateSourceTrigger=PropertyChanged}" 
+                                         Margin="5"/>
 
                             </DockPanel>
                         </DockPanel>
                         <StackPanel HorizontalAlignment="Center"
                                     Grid.Row="2">
                             <TextBlock Text="**************" />
-                            <Button Content="Mostrar pista" />
+                            <Button Content="Mostrar pista"
+                                    IsEnabled="{Binding Path=PartidaEnCurso}"/>
                         </StackPanel>
 
-                        <Image Source="{Binding Path=PartidaActual.PeliculaActual.Genero, Converter=}"
+                        <Image Source="{Binding Path=PartidaActual.PeliculaActual.Genero, Converter={StaticResource GeneroConverter}}"
                                Grid.Row="3"/>
                     </Grid>
 

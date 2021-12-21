@@ -33,6 +33,14 @@ namespace JuegoPeliculas.clase
             set => _ = SetProperty(ref _peliculaActual, value);
         }
 
+        private string _respuesta;
+
+        public string Respuesta
+        {
+            get => _respuesta;
+            set => _ = SetProperty(ref _respuesta, value);
+        }
+
         public Partida(ObservableCollection<Pelicula> listaPeliculas)
         {
             Puntuacion = 0;

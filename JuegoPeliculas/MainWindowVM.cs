@@ -168,7 +168,7 @@ namespace JuegoPeliculas
 
         public void Avanza()
         {
-            if (contador < 4)
+            if (contador < 4 && PartidaEnCurso)
             {
                 contador++;
                 PartidaActual.PeliculaActual = PartidaActual.PeliculasPartida[contador];
@@ -178,7 +178,7 @@ namespace JuegoPeliculas
 
         public void Retrocede()
         {
-            if (contador > 0)
+            if (contador > 0 && PartidaEnCurso)
             {
                 contador--;
                 PartidaActual.PeliculaActual = PartidaActual.PeliculasPartida[contador];

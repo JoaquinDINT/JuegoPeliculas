@@ -177,5 +177,12 @@
   <ItemGroup>
     <Resource Include="assets\arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\Acción.png" />
+    <Resource Include="assets\Ciencia-Ficción.png" />
+    <Resource Include="assets\Comedia.png" />
+    <Resource Include="assets\Drama.png" />
+    <Resource Include="assets\Terror.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
