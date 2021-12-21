@@ -21,8 +21,12 @@ namespace JuegoPeliculas
             ListaGeneros = new List<string> { "Comedia", "Drama", "Acción", "Terror","Ciencia-Ficción" };
             ListaPeliculas = new ObservableCollection<Pelicula>();
             ModoEdicion = false;
+            PartidaEnCurso = false;
+            contador = 0;
+            DisplayContador = "";
         }
 
+        private int contador;
         private ObservableCollection<Pelicula> _listaPeliculas;
 
         public ObservableCollection<Pelicula> ListaPeliculas
@@ -101,6 +105,87 @@ namespace JuegoPeliculas
             }
         }
 
+        private bool _partidaEnCurso;
+
+        public bool PartidaEnCurso
+        {
+            get => _partidaEnCurso;
+            set
+            {
+                if (value != _partidaEnCurso)
+                {
+                    _ = SetProperty(ref _partidaEnCurso, value);
+                }
+            }
+        }
+
+        private Partida _partidaActual;
+
+        public Partida PartidaActual
+        {
+            get => _partidaActual;
+            set
+            {
+                if (value != _partidaActual)
+                {
+                    _ = SetProperty(ref _partidaActual, value);
+                }
+            }
+        }
+        private string _displayContador;
+
+        public string DisplayContador
+        {
+            get => _displayContador;
+            set
+            {
+                if (value != _displayContador)
+                {
+                    _ = SetProperty(ref _displayContador, value);
+                }
+            }
+        }
+
+
+        public void ComenzarPartida()
+        {
+            if (ListaPeliculas.Count() < 5)
+            {
+                Dialogo.Alerta("Necesitas al menos 5 peliculas cargadas para comenzar una partida");
+            }
+            else
+            {
+                PartidaEnCurso = true;
+                PartidaActual = new Partida(ListaPeliculas);
+                DisplayContador = "1/5";
+            }
+        }
+
+        public void TerminarPartida()
+        {
+            PartidaEnCurso = false;
+        }
+
+        public void Avanza()
+        {
+            if (contador < 4)
+            {
+                contador++;
+                PartidaActual.PeliculaActual = PartidaActual.PeliculasPartida[contador];
+                DisplayContador = (contador + 1).ToString() + "/5";
+            }
+        }
+
+        public void Retrocede()
+        {
+            if (contador > 0)
+            {
+                contador--;
+                PartidaActual.PeliculaActual = PartidaActual.PeliculasPartida[contador];
+                DisplayContador = (contador + 1).ToString() + "/3";
+            }
+        }
+
         public void CargarPeliculas()
         {
             ListaPeliculas = Json.CargarPeliculasJson(Dialogo.AbrirJson());
@@ -121,12 +206,13 @@ namespace JuegoPeliculas
             {
                 ListaPeliculas.Add(PeliculaNueva);
                 PeliculaNueva = new Pelicula();
-
-                foreach (Pelicula pel in ListaPeliculas)
-                {
-                    Console.WriteLine(pel.Titulo);
-                }
             }
+        }
+
+
+        public void EliminarPelicula()
+        {
+            ListaPeliculas.Remove(PeliculaActual);
         }
 
         public void AceptarAñadirPelicula(AñadirPeli ap)
@@ -157,6 +243,19 @@ namespace JuegoPeliculas
                 PeliculaNueva.Cartel = Nube.SubirImagen(ruta);
             }
             catch(Exception)
+            {
+                Dialogo.Alerta("Error al subir una imagen a la nube");
+            }
+        }
+
+        public void ExaminarPelicula()
+        {
+            try
+            {
+                string ruta = Dialogo.AbrirImagen();
+                PeliculaActual.Cartel = Nube.SubirImagen(ruta);
+            }
+            catch (Exception)
             {
                 Dialogo.Alerta("Error al subir una imagen a la nube");
             }

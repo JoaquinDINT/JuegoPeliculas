@@ -46,8 +46,10 @@ namespace JuegoPeliculas
         private void AceptarClick(object sender, RoutedEventArgs e)
         {
             TituloTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-
-            DificultadConboBox.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
+            PistaTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            ImagenTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            DificultadComboBox.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
+            GeneroComboBox.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
 
             vm.AceptarCambios();
         }
@@ -59,7 +61,30 @@ namespace JuegoPeliculas
 
         private void ExaminarClick(object sender, RoutedEventArgs e)
         {
-            //vm.ExaminarImagen();
+            vm.ExaminarPelicula();
+        }
+        private void EliminarPeliculaClick(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarPelicula();
+        }
+
+        private void ComenzarPartidaClick(object sender, RoutedEventArgs e)
+        {
+            vm.ComenzarPartida();
+        }
+
+        private void TerminarPartidaClick(object sender, RoutedEventArgs e)
+        {
+            vm.TerminarPartida();
+        }
+        private void MasClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.Avanza();
+        }
+
+        private void MenosClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.Retrocede();
         }
     }
 }
