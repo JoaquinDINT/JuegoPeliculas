@@ -166,12 +166,68 @@ namespace JuegoPeliculas
             PartidaEnCurso = false;
         }
 
+        public void MostrarPista()
+        {
+            PartidaActual.PistaMostrada = true;
+            PartidaActual.ListaPistas[contador] = true;
+        }
+
+        public void ValidarRespuesta()
+        {
+            if (string.Equals(PartidaActual.PeliculaActual.Titulo.ToLower().Trim(), PartidaActual.Respuesta.ToLower().Trim()) && !PartidaActual.PreguntaRespondida)
+            {
+                if (PartidaActual.PistaMostrada)
+                {
+                    switch (PartidaActual.PeliculaActual.Nivel)
+                    {
+                        case "Fácil":
+                            PartidaActual.Puntuacion += 10;
+                            break;
+
+                        case "Media":
+                            PartidaActual.Puntuacion += 20;
+                            break;
+
+                        case "Difícil":
+                            PartidaActual.Puntuacion += 30;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (PartidaActual.PeliculaActual.Nivel)
+                    {
+                        case "Fácil":
+                            PartidaActual.Puntuacion += 20;
+                            break;
+
+                        case "Media":
+                            PartidaActual.Puntuacion += 40;
+                            break;
+
+                        case "Difícil":
+                            PartidaActual.Puntuacion += 70;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            PartidaActual.PreguntaRespondida = true;
+            PartidaActual.ListaRespondido[contador] = true;
+        }
+
         public void Avanza()
         {
             if (contador < 4 && PartidaEnCurso)
             {
                 contador++;
                 PartidaActual.PeliculaActual = PartidaActual.PeliculasPartida[contador];
+                PartidaActual.PistaMostrada = PartidaActual.ListaPistas[contador];
+                PartidaActual.PreguntaRespondida = PartidaActual.ListaRespondido[contador];
                 DisplayContador = (contador + 1).ToString() + "/5";
             }
         }
@@ -182,7 +238,9 @@ namespace JuegoPeliculas
             {
                 contador--;
                 PartidaActual.PeliculaActual = PartidaActual.PeliculasPartida[contador];
-                DisplayContador = (contador + 1).ToString() + "/3";
+                PartidaActual.PistaMostrada = PartidaActual.ListaPistas[contador];
+                PartidaActual.PreguntaRespondida = PartidaActual.ListaRespondido[contador];
+                DisplayContador = (contador + 1).ToString() + "/5";
             }
         }
 
@@ -204,7 +262,14 @@ namespace JuegoPeliculas
 
             if (AñadirDialogo.ShowDialog() == true)
             {
-                ListaPeliculas.Add(PeliculaNueva);
+                if(PeliculaNueva.Genero != null && PeliculaNueva.Cartel != null && PeliculaNueva.Titulo != "" && PeliculaNueva.Nivel != null && PeliculaNueva.Pista != "")
+                {
+                    ListaPeliculas.Add(PeliculaNueva);
+                }
+                else
+                {
+                    Dialogo.Alerta("Rellene todos los campos de la pelicula nueva");
+                }
                 PeliculaNueva = new Pelicula();
             }
         }
@@ -212,7 +277,7 @@ namespace JuegoPeliculas
 
         public void EliminarPelicula()
         {
-            ListaPeliculas.Remove(PeliculaActual);
+            _ = ListaPeliculas.Remove(PeliculaActual);
         }
 
         public void AceptarAñadirPelicula(AñadirPeli ap)

@@ -37,6 +37,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>assets\movie.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Azure.Core, Version=1.19.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Core.1.19.0\lib\net461\Azure.Core.dll</HintPath>
@@ -46,9 +49,6 @@
     </Reference>
     <Reference Include="Azure.Storage.Common, Version=12.9.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Storage.Common.12.9.0\lib\netstandard2.0\Azure.Storage.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ImageProcessor, Version=2.9.1.225, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageProcessor.2.9.1\lib\net452\ImageProcessor.dll</HintPath>
     </Reference>
     <Reference Include="MedallionRandom, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MedallionRandom.1.1.0\lib\net452\MedallionRandom.dll</HintPath>
@@ -121,6 +121,7 @@
     <Compile Include="dialogs\AñadirPeli.xaml.cs">
       <DependentUpon>AñadirPeli.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DificultadConverter.cs" />
     <Compile Include="GeneroConverter.cs" />
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="servicio\Dialogo.cs" />
@@ -183,6 +184,9 @@
     <Resource Include="assets\Comedia.png" />
     <Resource Include="assets\Drama.png" />
     <Resource Include="assets\Terror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\movie.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

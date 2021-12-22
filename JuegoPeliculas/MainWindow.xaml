@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JuegoPeliculas"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Adivina la película"
+        Icon="assets/movie.ico"
         Height="650"
         Width="1000"
         MinHeight="450"
@@ -13,6 +14,7 @@
         >
     <Window.Resources>
         <local:GeneroConverter x:Key="GeneroConverter" />
+        <local:DificultadConverter x:Key="DificultadConverter"/>
         
         <Style TargetType="TextBox"
                x:Key="DatosTextBox">
@@ -102,11 +104,77 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="TextBlock"
+               x:Key="PistaStyle">
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="FontSize"
+                    Value="24" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PistaMostrada}"
+                             Value="false">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect Radius="30" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="Image"
+               x:Key="ImagenAdivinarStyle">
+            <Setter Property="Stretch"
+                    Value="Uniform" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PeliculaActual.Nivel}"
+                             Value="Difícil">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect Radius="60" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PeliculaActual.Nivel}"
+                             Value="Media">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect Radius="32" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PeliculaActual.Nivel}"
+                             Value="Fácil">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect Radius="20"/>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DockPanel"
+               x:Key="PanelJuegoStyle">
+            <Setter Property="Background"
+                    Value="Gainsboro" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PreguntaRespondida}"
+                             Value="False">
+                    <Setter Property="Background"
+                            Value="{Binding Path=PartidaActual.PeliculaActual.Nivel, Converter={StaticResource DificultadConverter}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <TabControl>
             <TabItem Header="Juego">
-                <DockPanel>
+                <DockPanel Style="{StaticResource PanelJuegoStyle}">
                     <StackPanel DockPanel.Dock="Bottom"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Center">
@@ -155,10 +223,14 @@
                             <StackPanel DockPanel.Dock="Right">
                                 <Button Content="Comenzar Partida"
                                         Click="ComenzarPartidaClick"
-                                        Style="{StaticResource DisPartidaComenzadaButton}"/>
+                                        Style="{StaticResource DisPartidaComenzadaButton}"
+                                        Template="{DynamicResource ButtonControlTemplate1}"
+                                        Margin="5"/>
                                 <Button Content="Terminar Partida"
                                         Click="TerminarPartidaClick"
-                                        IsEnabled="{Binding Path=PartidaEnCurso}"/>
+                                        Template="{DynamicResource ButtonControlTemplate1}"
+                                        IsEnabled="{Binding Path=PartidaEnCurso}"
+                                        Margin="5"/>
                             </StackPanel>
                         </DockPanel>
                         <DockPanel Grid.Row="1" 
@@ -171,18 +243,31 @@
                                 <Button Content="Validar respuesta"
                                         DockPanel.Dock="Right"
                                         IsEnabled="{Binding Path=PartidaEnCurso}"
-                                        Margin="5"/>
+                                        Margin="5"
+                                        IsDefault="True"
+                                        Click="ValidarClick"
+                                        Template="{DynamicResource ButtonControlTemplate1}" />
                                 <TextBox Text="{Binding Path=PartidaActual.Respuesta, UpdateSourceTrigger=PropertyChanged}" 
                                          Margin="5"/>
 
                             </DockPanel>
                         </DockPanel>
-                        <StackPanel HorizontalAlignment="Center"
-                                    Grid.Row="2">
-                            <TextBlock Text="**************" />
+                        <DockPanel Grid.Row="2">
                             <Button Content="Mostrar pista"
-                                    IsEnabled="{Binding Path=PartidaEnCurso}"/>
-                        </StackPanel>
+                                    IsEnabled="{Binding Path=PartidaEnCurso}"
+                                    Template="{DynamicResource ButtonControlTemplate1}"
+                                    Margin="5"
+                                    DockPanel.Dock="Bottom"
+                                    Click="MostrarClick" />
+
+                            <Border BorderBrush="Black"
+                                    BorderThickness="2"
+                                    Margin="5">
+                                <TextBlock Text="{Binding Path=PartidaActual.PeliculaActual.Pista}"
+                                           Style="{StaticResource PistaStyle}"/>
+
+                            </Border>
+                        </DockPanel>
 
                         <Image Source="{Binding Path=PartidaActual.PeliculaActual.Genero, Converter={StaticResource GeneroConverter}}"
                                Grid.Row="3"/>
@@ -191,8 +276,9 @@
                     <Border BorderBrush="Black"
                             BorderThickness="1"
                             Margin="5,5,5,15">
-                        <Image Source="{Binding Path=PartidaActual.PeliculaActual.Cartel}"
-                               Stretch="Uniform"/>
+                        <Image Style="{StaticResource ImagenAdivinarStyle}"
+                               Source="{Binding Path=PartidaActual.PeliculaActual.Cartel}">
+                        </Image>
                     </Border>
                 </DockPanel>
             </TabItem>

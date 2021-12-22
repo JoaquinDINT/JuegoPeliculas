@@ -41,14 +41,38 @@ namespace JuegoPeliculas.clase
             set => _ = SetProperty(ref _respuesta, value);
         }
 
+        private bool _pistaMostrada;
+
+        public bool PistaMostrada
+        {
+            get => _pistaMostrada;
+            set => _ = SetProperty(ref _pistaMostrada, value);
+        }
+
+        private bool _preguntaRespondida;
+
+        public bool PreguntaRespondida
+        {
+            get => _preguntaRespondida;
+            set => _ = SetProperty(ref _preguntaRespondida, value);
+        }
+
+
+        public List<bool> ListaPistas;
+        public List<bool> ListaRespondido;
         public Partida(ObservableCollection<Pelicula> listaPeliculas)
         {
             Puntuacion = 0;
             List<Pelicula> aux = listaPeliculas.Shuffled().ToList();
             PeliculasPartida = new ObservableCollection<Pelicula>();
-            for(int i = 0; i < 5; i++)
+            ListaPistas = new List<bool>();
+            ListaRespondido = new List<bool>();
+            Respuesta = "";
+            for (int i = 0; i < 5; i++)
             {
                 PeliculasPartida.Add(aux[i]);
+                ListaPistas.Add(false);
+                ListaRespondido.Add(false);
             }
 
             PeliculaActual = PeliculasPartida[0];

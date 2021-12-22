@@ -86,5 +86,15 @@ namespace JuegoPeliculas
         {
             vm.Retrocede();
         }
+
+        private void ValidarClick(object sender, RoutedEventArgs e)
+        {
+            vm.ValidarRespuesta();
+        }
+
+        private void MostrarClick(object sender, RoutedEventArgs e)
+        {
+            vm.MostrarPista();
+        }
     }
 }
